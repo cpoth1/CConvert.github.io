@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Currency Converter</title>
+  <link rel="icon" type="image/x-icon" href="cclogo.png">
+  <link rel="stylesheet" href="CConverter.css" />
+</head>
+<body>
+  <div class="main-container">
+    <div class="converter">
+      <button id="mode-toggle">Toggle Dark/Light</button>
+      <h2 style="text-align: center;">Currency Converter</h2>
+      <input type="number" id="amount" placeholder="Amount" />
+      <select id="from"></select>
+      <select id="to"></select>
+      <button id="convert-btn">Convert</button>
+      <h3 id="result"></h3>
+
+      <label class="raw-toggle">
+        <input type="checkbox" id="raw-toggle" />
+        Copy Raw
+      </label>
+
+      <div id="last-updated" class="last-updated"></div>
+    </div>
+
+    <aside class="news-panel">
+      <h3>Currency News</h3>
+      <ul>
+        <li><a href="https://www.reuters.com/finance" target="_blank" rel="noopener">Reuters</a></li>
+        <li><a href="https://www.bloomberg.com/markets" target="_blank" rel="noopener">Bloomberg</a></li>
+        <li><a href="https://www.cnbc.com/" target="_blank" rel="noopener">CNBC</a></li>
+        <li><a href="https://www.fxstreet.com/news" target="_blank" rel="noopener">FXStreet</a></li>
+        <li><a href="https://www.investing.com/news" target="_blank" rel="noopener">Investing.com</a></li>
+      </ul>
+    </aside>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p>© 2025 Christian Pothier. All rights reserved.</p>
+      <nav class="footer-nav"></nav>
+    </div>
+  </footer>
+
+  <script src="CConverter.js"></script>
+</body>
+</html>

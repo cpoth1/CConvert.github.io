@@ -5,13 +5,244 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Currency Converter</title>
   <link rel="icon" type="image/x-icon" href="cclogo.png">
-  <link rel="stylesheet" href="CConverter.css" />
+
+  <style>
+    :root {
+      --background-light: #f5f5f5;
+      --background-dark: #121212;
+      --text-light: #222;
+      --text-dark: #ddd;
+      --box-color-light: #fff;
+      --box-color-dark: #1e1e1e;
+      --button-bg-light: #4a90e2;
+      --button-bg-dark: #3271bd;
+      --button-hover-light: #357ABD;
+      --button-hover-dark: #245a8d;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--background-light);
+      color: var(--text-light);
+      display: flex;
+      flex-direction: column;
+    }
+
+    body.dark {
+      background-color: var(--background-dark);
+      color: var(--text-dark);
+    }
+
+    .main-container {
+      flex: 1 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .converter {
+      background-color: var(--box-color-light);
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      width: 350px;
+      box-sizing: border-box;
+    }
+
+    body.dark .converter {
+      background-color: var(--box-color-dark);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+    }
+
+    .converter h2 {
+      text-align: center;
+    }
+
+    button, select, input[type="number"] {
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1.5px solid #ccc;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+    }
+
+    button {
+      background-color: var(--button-bg-light);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    button:hover {
+      background-color: var(--button-hover-light);
+    }
+
+    body.dark button {
+      background-color: var(--button-bg-dark);
+    }
+
+    body.dark button:hover {
+      background-color: var(--button-hover-dark);
+    }
+
+    body.dark select,
+    body.dark input[type="number"] {
+      background-color: #333;
+      border-color: #555;
+      color: var(--text-dark);
+    }
+
+    h2, h3 {
+      margin: 10px 0 20px 0;
+      font-weight: 700;
+    }
+
+    #result {
+      margin-top: 20px;
+      min-height: 1.4em;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--button-bg-light);
+    }
+
+    body.dark #result {
+      color: var(--button-bg-dark);
+    }
+
+    .news-panel {
+      background-color: var(--box-color-light);
+      padding: 20px 25px;
+      border-radius: 12px;
+      width: 300px;
+      box-sizing: border-box;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    }
+
+    body.dark .news-panel {
+      background-color: var(--box-color-dark);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+    }
+
+    .news-panel h3 {
+      margin-top: 0;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .news-panel ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+    }
+
+    .news-panel ul li {
+      margin: 12px 0;
+    }
+
+    .news-panel ul li a {
+      color: var(--button-bg-light);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .news-panel ul li a:hover,
+    .news-panel ul li a:focus {
+      color: var(--button-hover-light);
+      outline: none;
+    }
+
+    body.dark .news-panel ul li a {
+      color: var(--button-bg-dark);
+    }
+
+    body.dark .news-panel ul li a:hover,
+    body.dark .news-panel ul li a:focus {
+      color: var(--button-hover-dark);
+    }
+
+    .site-footer {
+      background: var(--box-color-light);
+      color: var(--text-light);
+      text-align: center;
+      padding: 20px 15px;
+      font-size: 0.9rem;
+      border-top: 1px solid #ccc;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .site-footer .footer-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .site-footer .footer-nav a {
+      color: var(--button-bg-light);
+      text-decoration: none;
+      margin: 0 6px;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .site-footer .footer-nav a:hover,
+    .site-footer .footer-nav a:focus {
+      color: var(--button-hover-light);
+      text-decoration: underline;
+    }
+
+    body.dark .site-footer {
+      background: var(--box-color-dark);
+      color: var(--text-dark);
+      border-top: 1px solid #444;
+    }
+
+    body.dark .site-footer .footer-nav a {
+      color: var(--button-bg-dark);
+    }
+
+    body.dark .site-footer .footer-nav a:hover,
+    body.dark .site-footer .footer-nav a:focus {
+      color: var(--button-hover-dark);
+    }
+
+    .last-updated {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .raw-toggle {
+      display: block;
+      margin-top: 16px;
+      font-size: 0.9rem;
+      text-align: center;
+      color: #444;
+    }
+
+    body.dark .raw-toggle {
+      color: #ccc;
+    }
+  </style>
 </head>
 <body>
   <div class="main-container">
     <div class="converter">
       <button id="mode-toggle">Toggle Dark/Light</button>
-      <h2 style="text-align: center;">Currency Converter</h2>
+      <h2>Currency Converter</h2>
       <input type="number" id="amount" placeholder="Amount" />
       <select id="from"></select>
       <select id="to"></select>
@@ -29,11 +260,11 @@
     <aside class="news-panel">
       <h3>Currency News</h3>
       <ul>
-        <li><a href="https://www.reuters.com/finance" target="_blank" rel="noopener">Reuters</a></li>
-        <li><a href="https://www.bloomberg.com/markets" target="_blank" rel="noopener">Bloomberg</a></li>
-        <li><a href="https://www.cnbc.com/" target="_blank" rel="noopener">CNBC</a></li>
-        <li><a href="https://www.fxstreet.com/news" target="_blank" rel="noopener">FXStreet</a></li>
-        <li><a href="https://www.investing.com/news" target="_blank" rel="noopener">Investing.com</a></li>
+        <li><a href="https://www.reuters.com/finance" target="_blank">Reuters</a></li>
+        <li><a href="https://www.bloomberg.com/markets" target="_blank">Bloomberg</a></li>
+        <li><a href="https://www.cnbc.com/" target="_blank">CNBC</a></li>
+        <li><a href="https://www.fxstreet.com/news" target="_blank">FXStreet</a></li>
+        <li><a href="https://www.investing.com/news" target="_blank">Investing.com</a></li>
       </ul>
     </aside>
   </div>
@@ -45,6 +276,129 @@
     </div>
   </footer>
 
-  <script src="CConverter.js"></script>
+  <script>
+    const currencies = {
+      "USD": "United States Dollar", "EUR": "Euro", "JPY": "Japanese Yen", "GBP": "British Pound Sterling", "AUD": "Australian Dollar", "CAD": "Canadian Dollar", "CHF": "Swiss Franc", "CNY": "Chinese Yuan", "SEK": "Swedish Krona", "NZD": "New Zealand Dollar", "MXN": "Mexican Peso", "SGD": "Singapore Dollar", "HKD": "Hong Kong Dollar", "NOK": "Norwegian Krone", "KRW": "South Korean Won", "TRY": "Turkish Lira", "INR": "Indian Rupee", "RUB": "Russian Ruble", "BRL": "Brazilian Real", "ZAR": "South African Rand", "DKK": "Danish Krone", "PLN": "Polish Zloty", "TWD": "New Taiwan Dollar", "THB": "Thai Baht", "MYR": "Malaysian Ringgit", "IDR": "Indonesian Rupiah", "CZK": "Czech Koruna", "HUF": "Hungarian Forint", "ILS": "Israeli New Shekel", "CLP": "Chilean Peso", "PHP": "Philippine Peso", "AED": "United Arab Emirates Dirham", "COP": "Colombian Peso", "SAR": "Saudi Riyal", "RON": "Romanian Leu"
+    };
+
+    const fromSelect = document.getElementById('from');
+    const toSelect = document.getElementById('to');
+    const amountInput = document.getElementById('amount');
+    const resultEl = document.getElementById('result');
+    const lastUpdatedEl = document.getElementById('last-updated');
+    const rawToggle = document.getElementById('raw-toggle');
+
+    function populateSelects() {
+      fromSelect.innerHTML = '';
+      toSelect.innerHTML = '';
+      for (const [code, name] of Object.entries(currencies)) {
+        const optionFrom = document.createElement('option');
+        optionFrom.value = code;
+        optionFrom.textContent = `${code} - ${name}`;
+        const optionTo = document.createElement('option');
+        optionTo.value = code;
+        optionTo.textContent = `${code} - ${name}`;
+        fromSelect.appendChild(optionFrom);
+        toSelect.appendChild(optionTo);
+      }
+      fromSelect.value = 'USD';
+      toSelect.value = 'EUR';
+    }
+
+    populateSelects();
+
+    async function convert() {
+      const amount = parseFloat(amountInput.value);
+      const from = fromSelect.value;
+      const to = toSelect.value;
+
+      if (!amount || amount <= 0) {
+        alert('Enter a valid amount');
+        return;
+      }
+
+      const apiKey = '3062251a47c5135d5cc4b6ca';
+      const url = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${from}`;
+
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        if (data.result === 'success') {
+          const rate = data.conversion_rates[to];
+          const converted = amount * rate;
+          const formatted = converted.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          const inputFormatted = amount.toLocaleString(undefined, { maximumFractionDigits: 2 });
+          resultEl.textContent = `${inputFormatted} ${from} = ${formatted} ${to}`;
+          lastUpdatedEl.textContent = `Last updated: ${new Date().toLocaleString()}`;
+          showCopyButton(converted);
+        } else {
+          alert('Failed to get exchange rate');
+        }
+      } catch {
+        alert('Error fetching exchange rate');
+      }
+    }
+
+    document.getElementById('convert-btn').addEventListener('click', convert);
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedMode = localStorage.getItem('colorMode');
+      if (savedMode === 'dark') document.body.classList.add('dark');
+    });
+
+    document.getElementById('mode-toggle').addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      const isDark = document.body.classList.contains('dark');
+      localStorage.setItem('colorMode', isDark ? 'dark' : 'light');
+    });
+
+    let copyBtn;
+    function showCopyButton(convertedValue) {
+      if (!copyBtn) {
+        copyBtn = document.createElement('button');
+        copyBtn.textContent = 'Copy Result';
+        copyBtn.style.marginTop = '12px';
+        copyBtn.style.padding = '8px 16px';
+        copyBtn.style.fontSize = '14px';
+        copyBtn.style.borderRadius = '8px';
+        copyBtn.style.border = 'none';
+        copyBtn.style.backgroundColor = 'var(--button-bg-light)';
+        copyBtn.style.color = 'white';
+        copyBtn.style.cursor = 'pointer';
+        copyBtn.style.transition = 'background 0.2s ease';
+        copyBtn.addEventListener('mouseenter', () => copyBtn.style.backgroundColor = 'var(--button-hover-light)');
+        copyBtn.addEventListener('mouseleave', () => copyBtn.style.backgroundColor = 'var(--button-bg-light)');
+        copyBtn.addEventListener('click', () => {
+          let valueToCopy = rawToggle.checked ? convertedValue.toFixed(2) : convertedValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          navigator.clipboard.writeText(valueToCopy).then(() => {
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => (copyBtn.textContent = 'Copy Result'), 1500);
+          }).catch(() => alert('Failed to copy'));
+        });
+        resultEl.after(copyBtn);
+      }
+      copyBtn.style.display = 'inline-block';
+    }
+
+    const reverseBtn = document.createElement('button');
+    reverseBtn.textContent = '⇄ Reverse';
+    reverseBtn.style.margin = '10px 0';
+    reverseBtn.style.padding = '8px 12px';
+    reverseBtn.style.fontSize = '14px';
+    reverseBtn.style.borderRadius = '8px';
+    reverseBtn.style.border = 'none';
+    reverseBtn.style.backgroundColor = 'var(--button-bg-light)';
+    reverseBtn.style.color = 'white';
+    reverseBtn.style.cursor = 'pointer';
+    reverseBtn.style.transition = 'background 0.2s ease';
+    reverseBtn.addEventListener('mouseenter', () => reverseBtn.style.backgroundColor = 'var(--button-hover-light)');
+    reverseBtn.addEventListener('mouseleave', () => reverseBtn.style.backgroundColor = 'var(--button-bg-light)');
+    reverseBtn.addEventListener('click', () => {
+      const temp = fromSelect.value;
+      fromSelect.value = toSelect.value;
+      toSelect.value = temp;
+    });
+    toSelect.after(reverseBtn);
+  </script>
 </body>
 </html>
